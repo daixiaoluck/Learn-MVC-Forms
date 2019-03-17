@@ -1,0 +1,55 @@
+﻿@model WebApplication1.Models.ViewModels.IndexHomeViewModel
+@using WebApplication1.Models
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<h1>Learning Html Helpers</h1>
+@Html.ValidationSummary(true)
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.SelectedValue, new { @class = "control-label col-sm-2" })
+        <div class="col-sm-10">
+            @Html.DropDownListFor(m => m.SelectedValue, Model.Areas, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SelectedValue)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Gender, new { @class = "control-label col-sm-2" })
+        <div class="col-sm-10">
+            <label class="radio-inline">
+                @Html.RadioButtonFor(m => m.Gender, ApplicationUser.GenderTraversal.Male)
+                @ApplicationUser.GenderTraversal.Male
+            </label>
+            <label class="radio-inline">
+                @Html.RadioButtonFor(m => m.Gender, ApplicationUser.GenderTraversal.Female)
+                @ApplicationUser.GenderTraversal.Female
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10 col-sm-offset-2">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.Noticed)
+                    I agree with the terms of your website.
+                </label>
+                <p>
+                    @Html.ValidationMessageFor(m => m.Noticed)
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="submit" value="Confirm" class="btn btn-primary" />
+        </div>
+    </div>
+}
