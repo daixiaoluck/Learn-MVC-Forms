@@ -26,7 +26,15 @@ namespace WebApplication1.Controllers
         {
             var userId = User.Identity.GetUserId();
             var user = _userManager.FindById(userId);
-            var ihvw = new IndexHomeViewModel { SelectedValue = user.Location, Gender = user.Gender, Noticed = user.Noticed, Areas = new SelectList(_context.Areas, "Value", "Text") };
+            var ihvw = new IndexHomeViewModel {
+                FamilyName = user.FamilyName,
+                FirstName = user.FirstName,
+                Birthday = user.Birthday,
+                SelectedValue = user.Location,
+                Gender = user.Gender,
+                Noticed = user.Noticed,
+                Areas = new SelectList(_context.Areas, "Value", "Text")
+            };
             return View(ihvw);
         }
 
@@ -37,12 +45,20 @@ namespace WebApplication1.Controllers
             var user = _userManager.FindById(userId);
             if (ModelState.IsValid)
             {
+                user.Birthday = viewModel.Birthday;
                 user.Location = viewModel.SelectedValue;
                 user.Gender = viewModel.Gender;
+                user.Noticed = viewModel.Noticed;
                 _context.Entry(user).State = EntityState.Modified;
                 _context.SaveChanges();
             }
-            var ihvw = new IndexHomeViewModel { SelectedValue = user.Location, Gender = user.Gender, Noticed = user.Noticed, Areas = new SelectList(_context.Areas, "Value", "Text") };
+            var ihvw = new IndexHomeViewModel {
+                Birthday = user.Birthday,
+                SelectedValue = user.Location,
+                Gender = user.Gender,
+                Noticed = user.Noticed,
+                Areas = new SelectList(_context.Areas, "Value", "Text")
+            };
             return View(ihvw);
         }
 

@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -9,11 +11,15 @@ namespace WebApplication1.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public string FirstName { get; set; }
+        public string FamilyName { get; set; }
         public enum GenderTraversal
         {
             Male,
             Female
         }
+        [Column(TypeName = "Date")]
+        public DateTime? Birthday { get; set; }
         public bool Noticed { get; set; }
         public GenderTraversal Gender { get; set; }
         public int Location { get; set; }
